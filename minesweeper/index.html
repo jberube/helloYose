@@ -224,14 +224,31 @@ line-height: 1.4;
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <script>
+	var document.grid = [];
+
 	var html = '';
 	for ( var p = 1; p <= 8; p++ ) {
 		html += '<tr>';
 		for ( var n = 1; n <= 8; n++ ) {
-			html += '<td id="cell-' + p + 'x' + n + '"></td>';
+			html += '<td class="cell" id="cell-' + p + 'x' + n + '"></td>';
 		}
 		html += '</tr>';
 	}
 	$('#grid').html(html);
+	
+	function load(grid) {
+		document.grid = grid;
+	}
+	
+	$('.cell').on(function (event) {
+		var id = event.target.attr['id'];
+		var n = id.split('-')[1].split('x')[1];
+		var p = id.split('-')[1].split('x')[0];
+		if ($(event.target).attr['id']) {
+			if (document.grid[p][n]) {
+				$(event.target).addClass('lost');
+			}			
+		}
+	});
 </script>
 </body>
