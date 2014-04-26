@@ -44,6 +44,7 @@ var SampleApp = function() {
 
         //  Local cache for static content.
         self.zcache['index.html'] = fs.readFileSync('./index.html');
+        self.zcache['./minesweeper/index.html'] = fs.readFileSync('./minesweeper/index.html');
     };
 
 
@@ -104,7 +105,12 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
-    };
+
+        self.routes['/minesweeper'] = function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(self.cache_get('./minesweeper/index.html') );
+        };
+	};
 
 
     /**
