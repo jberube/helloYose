@@ -249,14 +249,12 @@ line-height: 1.4;
 	}
 	
 	$('#grid td').on('click', function (event) {
-		var id = event.target.attr['id'];
+		var id = $(event.target).attr('id');
 		var n = id.split('-')[1].split('x')[1];
 		var p = id.split('-')[1].split('x')[0];
-		if ($(event.target).attr['id']) {
-			if (document.grid[p][n]) {
-				$(event.target).addClass('lost');
-			}			
-		}
+		if (document.grid[p][n] === 'bomb') {
+			$(event.target).addClass('lost');
+		}			
 	});
 </script>
 </body>
