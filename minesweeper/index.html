@@ -245,10 +245,12 @@ line-height: 1.4;
 	$('#grid').html(html);
 	
 	function load(grid) {
-		document.grid = grid;
+		//document.grid = grid;
+		console.log('load', grid);
 	}
 	
 	$('#grid td').on('click', function (event) {
+		console.log('click', document.grid);
 		var id = $(event.target).attr('id');
 		var n = parseInt(id.split('-')[1].split('x')[1], 10) - 1;
 		var p = parseInt(id.split('-')[1].split('x')[0], 10) - 1;
