@@ -227,7 +227,7 @@ line-height: 1.4;
 	for ( var p = 1; p <= 8; p++ ) {
 		html += '<tr>';
 		for ( var n = 1; n <= 8; n++ ) {
-			html += '<td class="cell" id="cell-' + p + 'x' + n + '"></td>';
+			html += '<td id="cell-' + p + 'x' + n + '"></td>';
 		}
 		html += '</tr>';
 	}
@@ -237,7 +237,7 @@ line-height: 1.4;
 		document.grid = grid;
 	}
 	
-	$('.cell').on(function (event) {
+	$('#grid td').on(function (event) {
 		var id = event.target.attr['id'];
 		var n = id.split('-')[1].split('x')[1];
 		var p = id.split('-')[1].split('x')[0];
