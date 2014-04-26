@@ -212,7 +212,7 @@ line-height: 1.4;
 		  
 	<div class="row">
 		<section class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<table>
+			<table id="grid">
 				<tr>
 					<td id="cell-1x1"></td>
 				</tr>
@@ -220,4 +220,18 @@ line-height: 1.4;
 		</section>
 	</div>
 </section>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script>
+	var html = '';
+	for ( var p = 1; p <= 8; p++ ) {
+		html += '<tr>';
+		for ( var n = 1; n <= 8; n++ ) {
+			html += '<td id="cell-' + p + 'x' + n + '"></td>';
+		}
+		html += '</tr>';
+	}
+	$('#grid').html(html);
+</script>
 </body>
