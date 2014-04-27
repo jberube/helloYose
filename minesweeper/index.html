@@ -66,7 +66,7 @@
 		} else {
 			$(event.target).addClass('safe');
 			var bombs = 0
-			for (var o = 0; o <= 8; n++) {
+			for (var o = 0; o <= 8; o++) {
 				var op = p -1 + (Math.floor(o / 3));
 				var on = n -1 + (o % 3);
 				if (document.grid[p][n] === 'bomb') bombs++;
