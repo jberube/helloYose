@@ -49,6 +49,9 @@
 		var p = parseInt(id.split('-')[1].split('x')[0], 10) - 1;
 		if (document.grid[p][n] === 'bomb') {
 			$(event.target).addClass('lost');
+		} else {
+			$(event.target).addClass('safe');
+			$(event.target).text('1');
 		}			
 	});
 </script>
