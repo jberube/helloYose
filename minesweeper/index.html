@@ -53,8 +53,19 @@
 	}
 	$('#grid').html(html);
 	
-	function load(grid) {
-		console.log('load', grid);
+	function load() {
+		if (!document.grid) {
+			document.grid = [
+				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+				['empty', 'empty', 'empty', 'empty', 'empty', 'bomb' , 'empty', 'empty'],
+				['empty', 'empty', 'empty', 'empty', 'bomb' , 'empty', 'empty', 'empty'],
+				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+			];
+		}
 	}
 	
 	$('#grid td').on('click', function (event) {
@@ -69,7 +80,7 @@
 			for (var o = 0; o <= 8; o++) {
 				var op = p -1 + (Math.floor(o / 3));
 				var on = n -1 + (o % 3);
-				if (document.grid[op][on] === 'bomb') bombs++;
+				if (document.grid[op] && document.grid[op][on] === 'bomb') bombs++;
 			}
 			$(event.target).text(bombs);
 		}			
