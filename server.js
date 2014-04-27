@@ -110,6 +110,11 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('./minesweeper/index.html') );
         };
+
+        self.routes['/ping'] = function(req, res) {
+            res.setHeader('Content-Type', 'application/json');
+            res.send({ alive : true });
+        };
 	};
 
 
