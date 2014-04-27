@@ -38,12 +38,10 @@
 	$('#grid').html(html);
 	
 	function load(grid) {
-		//document.grid = grid;
 		console.log('load', grid);
 	}
 	
 	$('#grid td').on('click', function (event) {
-		console.log('click', document.grid);
 		var id = $(event.target).attr('id');
 		var n = parseInt(id.split('-')[1].split('x')[1], 10) - 1;
 		var p = parseInt(id.split('-')[1].split('x')[0], 10) - 1;
@@ -51,7 +49,13 @@
 			$(event.target).addClass('lost');
 		} else {
 			$(event.target).addClass('safe');
-			$(event.target).text('1');
+			var bombs = 0
+			for (var o = 0; o <= 8; n++) {
+				var op = p -1 + (Math.floor(o / 3));
+				var on = n -1 + (o % 3);
+				if (document.grid[p][n] === 'bomb') bombs++;
+			}
+			$(event.target).text(bombs);
 		}			
 	});
 </script>
