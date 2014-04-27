@@ -45,6 +45,7 @@ var SampleApp = function() {
         //  Local cache for static content.
         self.zcache['index.html'] = fs.readFileSync('./index.html');
         self.zcache['./minesweeper/index.html'] = fs.readFileSync('./minesweeper/index.html');
+        self.zcache['repo.html'] = fs.readFileSync('./repo.html');
     };
 
 
@@ -114,6 +115,11 @@ var SampleApp = function() {
         self.routes['/ping'] = function(req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.send({ alive : true });
+        };
+
+        self.routes['/repo'] = function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(self.cache_get('repo.html') );
         };
 	};
 
