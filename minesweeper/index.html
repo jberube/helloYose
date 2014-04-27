@@ -15,12 +15,12 @@
 			background-color: #aaaaaa;
 		}
 		
-		#grid td lost {
+		#grid td.lost {
 			background-color: red;
 		}
 
-		#grid td safe {
-			background-color: #dadada;
+		#grid td.safe {
+			background-color: #dddddd;
 		}
 	</style>
 </head>
@@ -41,7 +41,7 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <script>
-	document.grid = [];
+	document.grid;
 
 	var html = '';
 	for ( var p = 1; p <= 8; p++ ) {
@@ -69,6 +69,8 @@
 	}
 	
 	$('#grid td').on('click', function (event) {
+		if (!document.grid) load();
+		
 		var id = $(event.target).attr('id');
 		var n = parseInt(id.split('-')[1].split('x')[1], 10) - 1;
 		var p = parseInt(id.split('-')[1].split('x')[0], 10) - 1;
@@ -82,7 +84,7 @@
 				var on = n -1 + (o % 3);
 				if (document.grid[op] && document.grid[op][on] === 'bomb') bombs++;
 			}
-			$(event.target).text(bombs);
+			if (bombs) $(event.target).text(bombs);
 		}			
 	});
 </script>
