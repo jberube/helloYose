@@ -55,18 +55,23 @@
 	}
 	$('#grid').html(html);
 	
+	function generateRandomCell() {
+		if (1 === Math.floor(Math.random() * 20)) {
+			return 'bomb';
+		} else {
+			return 'empty';
+		}
+	}
+	
 	function load() {
 		if (!document.grid) {
-			document.grid = [
-				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-				['empty', 'empty', 'empty', 'empty', 'empty', 'bomb' , 'empty', 'empty'],
-				['empty', 'empty', 'empty', 'empty', 'bomb' , 'empty', 'empty', 'empty'],
-				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-				['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-			];
+			document.grid = [];
+			for (var p = 0; p < 8; p++) {
+				document.grid[p] = [];
+				for (var n = 0; n < 8; n++) {
+					document.grid[p][n] = generateRandomCell();
+				}
+			}
 		}
 	}
 
