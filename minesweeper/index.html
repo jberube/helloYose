@@ -22,7 +22,10 @@
 		#grid td.safe {
 			background-color: #dddddd;
 		}
-	</style>
+
+		#grid td.suspect {
+			background-color: indigo;
+		}	</style>
 </head>
 
 <body>
@@ -32,8 +35,11 @@
 	</hgroup>
 		  
 	<div class="row">
-		<section class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<section class='col-xs-8'>
 			<table id="grid"></table>
+		</section>
+		<section class='col-xs-4'>
+			<label>suspect <input id="suspect-mode" type="checkbox" /></label>
 		</section>
 	</div>
 </section>
@@ -106,16 +112,24 @@
 		}
 	}
 	
+	function suspect(p, n) {
+		var $cell = $('#cell-' + (p+1) + 'x' + (n+1));
+		$cell.addClass('suspect');
+	}
+	
 	$('#grid td').on('click', function (event) {
 		if (!document.grid) load();
-		
-		revealed = {};
-		
+
 		var id = $(event.target).attr('id');
 		var n = parseInt(id.split('-')[1].split('x')[1], 10) - 1;
 		var p = parseInt(id.split('-')[1].split('x')[0], 10) - 1;
-
-		reveal(p, n);			
+		
+		if ($('#suspect-mode').is(':checked')) {
+			suspect(p, n);
+		} else {
+			revealed = {};
+			reveal(p, n);			
+		}
 	});
 	
 	$(function () {
