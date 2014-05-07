@@ -125,34 +125,42 @@ var SampleApp = function() {
         self.routes['/primeFactors'] = function(req, res) {
             var url = require('url').parse(req.url),
                 querystring = require('querystring').parse(url.query),
-                number = parseInt(querystring.number, 10),
                 decomposition = [];
                 
             res.setHeader('Content-Type', 'application/json');
-
-            if (isNaN(number)) {
-                res.send({ 
-                    number: querystring.number,
-                    error: "not a number"
-                });
-                return;
+            var body = [];
+            if (typeof querystring.number === 'object') {
+                for (var n in querystring.number) {
+                    if (querystring.number.hasOwnProperty(n)) {
+                        body.push(getResponse(querystring.number[n]));
+                    }
+                }
+            } else {
+                body.push(getResponse(querystring.number));
             }
-            
-            if (number > 1000000) {
-                res.send({ 
-                    number: querystring.number,
-                    error: "too big number (>1e6)"
-                });
-                return;
-            }
-            
-            
-            res.send({ 
-                number: querystring.number,
-                decomposition: getPrimeFactors(number)
-            });
+            res.send(body.length>1 ? body : body[0]);
         };
 	};
+
+    function getResponse(input) {
+        var number = parseInt(input, 10);
+        if (isNaN(number)) {
+            return { 
+                number: input,
+                error: "not a number"
+            };
+        }
+        if (number > 1000000) {
+            return { 
+                number: input,
+                error: "too big number (>1e6)"
+            };
+        }
+        return { 
+            number: input,
+            decomposition: getPrimeFactors(number)
+        };
+    }
 
     function getPrimeFactors(n) {
         var factors = [],
