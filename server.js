@@ -123,8 +123,9 @@ var SampleApp = function() {
         };
         
         self.routes['/primeFactors'] = function(req, res) {
+            debugger;
             var url = require('url').parse(req.url),
-                querystring = require('querystring').parse(url.search),
+                querystring = require('querystring').parse(url.query),
                 originalNumber = parseInt(querystring.number, 10),
                 number = originalNumber,
                 decomposition = [];
@@ -136,7 +137,7 @@ var SampleApp = function() {
             
             res.setHeader('Content-Type', 'application/json');
             res.send({ 
-                number: number,
+                number: originalNumber,
                 decomposition: decomposition
             });
         };
