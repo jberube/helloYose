@@ -121,6 +121,25 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('repo.html') );
         };
+        
+        self.routes['/primeFactors'] = function(req, res) {
+            var url = require('url').parse(request.url),
+                querystring = require('querystring').parse(url.search),
+                originalNumber = parseInt(querystring.number, 10),
+                number = originalNumber,
+                decomposition = [];
+                
+            while (number>1) {
+                decomposition.push(2);
+                number/=2;
+            }
+            
+            res.setHeader('Content-Type', 'application/json');
+            res.send({ 
+                number: number,
+                decomposition: decomposition
+            });
+        };
 	};
 
 
