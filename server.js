@@ -135,7 +135,17 @@ var SampleApp = function() {
                     number: querystring.number,
                     error: "not a number"
                 });
+                return;
             }
+            
+            if (number > 1000000) {
+                res.send({ 
+                    number: querystring.number,
+                    error: "too big number (>1e6)"
+                });
+                return;
+            }
+            
             
             res.send({ 
                 number: querystring.number,
@@ -144,22 +154,16 @@ var SampleApp = function() {
         };
 	};
 
-    function getPrimeFactors(number) {
-        var factors = [];
-        if (number === 1)
-            return [1];
-
-        i: for (var i = 2; i <= number; i++) {
-            for (var j = 1; j <= number; j++) {
-                if (number === i * j) {
-                    factors.push(i);
-                    var subResult = getPrimeFactors(j);
-                    if (subResult[0] > 1) {
-                        factors = factors.concat(subResult);
-                        break i;
-                    }
-                }
+    function getPrimeFactors(n) {
+        var factors = [],
+            d = 2;
+            
+        while (n > 1) {
+            while (n % d === 0) {
+                factors.push(d);
+                n /= d;
             }
+            d++;
         }
         return factors;
     }
