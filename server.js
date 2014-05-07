@@ -124,19 +124,26 @@ var SampleApp = function() {
         
         self.routes['/primeFactors'] = function(req, res) {
             var url = require('url').parse(req.url),
-                querystring = require('querystring').parse(url.search),
-                originalNumber = parseInt(querystring.number, 10),
-                number = originalNumber,
+                querystring = require('querystring').parse(url.query),
+                number = parseInt(querystring.number, 10),
                 decomposition = [];
+                
+            res.setHeader('Content-Type', 'application/json');
+
+            if (isNaN(number)) {
+                res.send({ 
+                    number: querystring.number,
+                    error: "not a number"
+                });
+            }
                 
             while (number>1) {
                 decomposition.push(2);
                 number/=2;
             }
             
-            res.setHeader('Content-Type', 'application/json');
             res.send({ 
-                number: number,
+                number: querystring.number,
                 decomposition: decomposition
             });
         };
